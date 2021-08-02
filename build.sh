@@ -38,7 +38,7 @@ create_tag
 if [[ ! -z ${version} ]];
 then
   source project.properties
-  image_version_tag="${owner}/${project}:${version}"
+  image_version_tag="${owner}/${project}:${version}-${base_version}"
   image_latest_tag="${owner}/${project}:latest"
   echo building ${image_version_tag} with base version ${base_version}
   docker build --no-cache -t ${image_version_tag} . --build-arg BASE_VERSION=${base_version}
