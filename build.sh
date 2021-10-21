@@ -28,7 +28,8 @@ create_tag() {
             fi;
 	    echo "version: ${version}"
         else
-            echo nothing to build
+            version="local"
+            echo nothing to build. check only build.
         fi;
     fi;
 }
@@ -42,16 +43,20 @@ then
   image_latest_tag="${owner}/${project}:latest"
   echo building ${image_version_tag} with base version ${base_version}
   docker build --no-cache -t ${image_version_tag} . --build-arg BASE_VERSION=${base_version}
-  docker push ${image_version_tag}
-  docker tag ${image_version_tag} ${image_latest_tag}
-  docker push ${image_latest_tag}
-  now=$(date '+%Y-%m-%dT%H:%M:%S%z')
+
+  if [[ "$version" != "local" ]]; then
+    docker push ${image_version_tag}
+    docker tag ${image_version_tag} ${image_latest_tag}
+    docker push ${image_latest_tag}
+    now=$(date '+%Y-%m-%dT%H:%M:%S%z')
 
 
-  git config --global user.email "${email}"
-  git config --global user.name "${name}"
+    git config --global user.email "${email}"
+    git config --global user.name "${name}"
 
-  git tag -m "{\"author\":\"ci\", \"branch\":\"$current_branch\", \"hash\": \"${current_hash}\", \"version\":\"${version}\",  \"build_date\":\"${now}\"}"  ${version}
-  git push --tags
+    git tag -m "{\"author\":\"ci\", \"branch\":\"$current_branch\", \"hash\": \"${current_hash}\", \"version\":\"${version}\",  \"build_date\":\"${now}\"}"  ${version}
+    git push --tags
+
+  fi;
 fi;
 
