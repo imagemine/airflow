@@ -3,10 +3,10 @@ FROM apache/airflow:${BASE_VERSION}
 USER root
 RUN mkdir -p /opt/app
 RUN mv /opt/airflow /opt/airflow-template
-COPY --chown=airflow:airflow entrypoint/entrypoint.sh /opt/app/entrypoint.sh
-COPY --chown=airflow:airflow conf/airflow.cfg /opt/airflow-template/airflow.cfg
-COPY --chown=airflow:airflow conf/webserver_config.py /opt/airflow-template/webserver_config.py
-COPY --chown=airflow:airflow conf/airflow_local_settings.py /opt/airflow-template/airflow_local_settings.py
+COPY --chown=airflow:root entrypoint/entrypoint.sh /opt/app/entrypoint.sh
+COPY --chown=airflow:root conf/airflow.cfg /opt/airflow-template/airflow.cfg
+COPY --chown=airflow:root conf/webserver_config.py /opt/airflow-template/webserver_config.py
+COPY --chown=airflow:root conf/airflow_local_settings.py /opt/airflow-template/airflow_local_settings.py
 VOLUME [ "/opt/airflow" ]
 RUN chmod a+x /opt/app/entrypoint.sh && chown -R airflow /opt/app /opt/airflow
 
