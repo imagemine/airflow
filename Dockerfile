@@ -1,4 +1,4 @@
-ARG BASE_VERSION=2.0
+ARG BASE_VERSION=2.4.0-python3.8
 FROM apache/airflow:${BASE_VERSION}
 USER root
 RUN mkdir -p /opt/app
