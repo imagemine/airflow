@@ -24,7 +24,7 @@ create_tag() {
                 read a b c <<< $(echo $latest_version|sed 's/\./ /g')
                 version="$a.$b.$((c+1))"
             else
-                version="v2.0.0"
+                version="v2.5.0"
             fi;
 	    echo "version: ${version}"
         else
