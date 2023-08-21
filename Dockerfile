@@ -1,4 +1,4 @@
-ARG BASE_VERSION=2.7.0-python3.10
+ARG BASE_VERSION=slim-2.7.0-python3.10
 FROM apache/airflow:${BASE_VERSION}
 USER root
 RUN mkdir -p /opt/app
