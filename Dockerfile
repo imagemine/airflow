@@ -1,13 +1,14 @@
-ARG BASE_VERSION=slim-2.7.0-python3.10
+ARG BASE_VERSION=2.7.0-python3.10
 FROM apache/airflow:${BASE_VERSION}
 USER root
 RUN mkdir -p /opt/app
 RUN mv /opt/airflow /opt/airflow-template
 COPY --chown=airflow:root entrypoint/entrypoint.sh /opt/app/entrypoint.sh
+COPY --chown=airflow:root entrypoint/env_config.sh /opt/app/env_config.sh
 COPY --chown=airflow:root conf/airflow.cfg /opt/airflow-template/airflow.cfg
 COPY --chown=airflow:root conf/webserver_config.py /opt/airflow-template/webserver_config.py
 COPY --chown=airflow:root conf/airflow_local_settings.py /opt/airflow-template/airflow_local_settings.py
-RUN chmod a+x /opt/app/entrypoint.sh && chown -R airflow /opt/app /opt/airflow
+RUN chmod a+x /opt/app/entrypoint.sh && chmod a+x /opt/app/env_config.sh && chown -R airflow /opt/app /opt/airflow
 VOLUME [ "/opt/airflow" ]
 
 USER airflow

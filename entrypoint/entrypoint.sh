@@ -11,7 +11,8 @@ fi;
 
 echo "Airflow Executor: ${AIRFLOW__CORE__EXECUTOR}"
 
-
+echo "Setting environment variables ..."
+./opt/app/env_config.sh
 
 case "$1" in
   embedded)
