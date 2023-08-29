@@ -1,12 +1,11 @@
 # !/usr/bin/env bash
 
-if [[ ! -z $AIRFLOW_DB_PASSWORD_FILENAME ]] && [[ ! -z $AIRFLOW_DB_USERNAME_FILENAME ]]; then
+if [[ ! -z $AIRFLOW_DB_PASSWORD_FILENAME ]]; then
   AIRFLOW_DB_PASSWORD=$(cat $AIRFLOW_DB_PASSWORD_FILENAME)
-  AIRFLOW_DB_USERNAME=$(cat $AIRFLOW_DB_USERNAME_FILENAME)
-  if [[ ! -z $AIRFLOW_DB_DRIVER ]] && [[ ! -z $AIRFLOW_DB_HOST ]] && [[ ! -z $AIRFLOW_DB_PORT ]] && [[ ! -z $AIRFLOW_DB_DATABASE ]]; then
+  if [[ ! -z $AIRFLOW_DB_USERNAME ]] && [[ ! -z $AIRFLOW_DB_DRIVER ]] && [[ ! -z $AIRFLOW_DB_HOST ]] && [[ ! -z $AIRFLOW_DB_PORT ]] && [[ ! -z $AIRFLOW_DB_DATABASE ]]; then
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN="$AIRFLOW_DB_DRIVER://$AIRFLOW_DB_USERNAME:$AIRFLOW_DB_PASSWORD@$AIRFLOW_DB_HOST:$AIRFLOW_DB_PORT/$AIRFLOW_DB_DATABASE"
   else
-    echo "airflow database, host, port are required. Use AIRFLOW_DB_HOST and AIRFLOW_DB_PORT and AIRFLOW_DB_DATABASE env to provide the configuration."
+    echo "airflow database, host, port, username are required. Use AIRFLOW_DB_USERNAME and AIRFLOW_DB_HOST and AIRFLOW_DB_PORT and AIRFLOW_DB_DATABASE env to provide the configuration."
   fi
 fi
 
