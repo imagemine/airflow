@@ -16,10 +16,7 @@ RUN /usr/local/bin/python -m pip install --upgrade pip && \
     pip3 install "apache-airflow[postgres]" && \
     pip3 install "apache-airflow[cncf.kubernetes]" && \
     pip3 install apache-airflow-providers-trino[common.sql] && \
-    pip3 install oauth2client authlib && \
-    pip3 install sqllineage && \
-    pip3 install openmetadata-ingestion==1.2.0.1 && \
-    pip3 install openmetadata-managed-apis==1.2.0.1
+    pip3 install oauth2client authlib
 RUN rm -rf /home/airflow/.local/lib/python3.10/site-packages/gevent/tests
 RUN rm -rf /home/airflow/.local/lib/python3.10/site-packages/slapdtest/certs
 RUN rm -rf /home/airflow/.local/lib/python3.10/site-packages/tornado/test
